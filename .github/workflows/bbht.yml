@@ -19,11 +19,7 @@ jobs:
           echo pwd
           pwd
           echo
-          
-          echo pwd
-          pwd
-          echo
-          
+
           chmod +x scripts/install-bash.sh
           ./scripts/install-bash.sh
           
@@ -62,22 +58,6 @@ jobs:
           nmap -h
           
           echo
-          echo Checking sublist3r
-          sublist3r
-          
-          echo
-          echo Checking assetfinder 
-          assetfinder -h
-          
-          echo
-          echo Checking waybackurls 
-          waybackurls -h
-          
-          echo
-          echo Checking subfinder 
-          subfinder 
-          
-          echo
           echo Checking ruby 
           ruby -v
           
@@ -92,18 +72,5 @@ jobs:
           echo
           echo Checking httprobe   
           httprobe -h  
-          
-          echo
-          echo Checking amass 
-          amass
-          
-          echo
-          echo Checking Corsy 
-          python3 ~/tools/Corsy/corsy.py 
-          
-          echo
-          echo Checking altdns 
-          altdns 
-          
-         
+                   
           echo ~~~~~~~~~~~~~~~~ DONE ~~~~~~~~~~~~~
