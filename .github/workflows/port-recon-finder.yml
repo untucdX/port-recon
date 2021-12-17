@@ -14,31 +14,20 @@ jobs:
     steps:
       - name: Checkout this repo
         uses: actions/checkout@v2
-      
-      - name: disk space initially - df
-        run: df -h
         
-      - name: Fetch bbht repo
+      - name: Fetch bbht repo & Setup runner
         run: |
           chmod +x scripts/*
           ./scripts/install-bash.sh
-        
-      - name: disk space after installing bbht tools - df
-        run: df -h
         
       - name: find ports + recon for "${{ github.event.inputs.domain_name }}"
         continue-on-error: true
         run: |
           ./scripts/port-recon-finder.sh -d "${{ github.event.inputs.domain_name }}"
-          
-      - name: disk space after finding subdomains - df
-        run: df -h
-          
-      - name: Create local changes
-        run: git add .
         
-      - name: Commit changes
+      - name: Create local changes + Commit changes
         run: |
+          git add .
           git config --local user.email "user@netanmangal.me"
           git config --global user.name "untucdX"
           git commit -m "report for ${{ github.event.inputs.domain_name }} added" -a --allow-empty
