@@ -9,9 +9,6 @@ jobs:
     steps:
       - name: Checkout this repo
         uses: actions/checkout@v2
-      
-      - name: disk space - df
-        run: df -h
         
       - name: Fetch bbht repo
         continue-on-error: true
@@ -22,23 +19,6 @@ jobs:
 
           chmod +x scripts/install-bash.sh
           ./scripts/install-bash.sh
-          
-          echo
-          echo ls in ~/bbht
-          ls -lah
-          
-          echo
-          echo ls in ~
-          cd ~
-          ls ~ -lah
-          
-          echo
-          echo ls in /root
-          cd /root
-          ls -lah
-          
-      - name: disk space - df
-        run: df -h
           
       - name: Checking which things are installed without root user but sourced ~/.bash_profile
         continue-on-error: true

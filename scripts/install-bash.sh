@@ -255,7 +255,7 @@ echo -e "\e[1;31m done \e[0m"
 
 #install naabu
 echo -e "\e[1;31m installing naabu \e[0m"
-GO111MODULE=on go get -v github.com/projectdiscovery/naabu/v2/cmd/naabu
+go install -v github.com/projectdiscovery/naabu/v2/cmd/naabu@latest
 echo -e "\e[1;31m done \e[0m"
 
 #install httpx
