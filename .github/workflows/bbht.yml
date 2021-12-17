@@ -44,13 +44,21 @@ jobs:
           echo
           echo Checking smuggler 
           smuggler 
+
+          echo
+          echo Checking httprobe   
+          httprobe -h      
+
+          echo
+          echo Checking ffuf   
+          ffuf -h         
+
+          echo
+          echo Checking nuclei   
+          nuclei -h         
           
           echo
           echo Checking naabu  
           naabu -h
           
-          echo
-          echo Checking httprobe   
-          httprobe -h  
-                   
           echo ~~~~~~~~~~~~~~~~ DONE ~~~~~~~~~~~~~
