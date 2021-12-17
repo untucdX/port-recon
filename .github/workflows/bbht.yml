@@ -1,0 +1,109 @@
+name: Setup the runner
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  setup_runner:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v2
+      
+      - name: disk space - df
+        run: df -h
+        
+      - name: Fetch bbht repo
+        continue-on-error: true
+        run: |
+          echo pwd
+          pwd
+          echo
+          
+          echo pwd
+          pwd
+          echo
+          
+          chmod +x scripts/install-bash.sh
+          ./scripts/install-bash.sh
+          
+          echo
+          echo ls in ~/bbht
+          ls -lah
+          
+          echo
+          echo ls in ~
+          cd ~
+          ls ~ -lah
+          
+          echo
+          echo ls in /root
+          cd /root
+          ls -lah
+          
+      - name: disk space - df
+        run: df -h
+          
+      - name: Checking which things are installed without root user but sourced ~/.bash_profile
+        continue-on-error: true
+        run: |
+          source ~/.bash_profile
+          echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          echo bash file is sourced to ~/.bash_profile
+          echo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          
+          echo
+          echo Checking GO
+          go version
+          echo $GOROOT
+ 
+          echo
+          echo Checking nmap
+          nmap -h
+          
+          echo
+          echo Checking sublist3r
+          sublist3r
+          
+          echo
+          echo Checking assetfinder 
+          assetfinder -h
+          
+          echo
+          echo Checking waybackurls 
+          waybackurls -h
+          
+          echo
+          echo Checking subfinder 
+          subfinder 
+          
+          echo
+          echo Checking ruby 
+          ruby -v
+          
+          echo
+          echo Checking smuggler 
+          smuggler 
+          
+          echo
+          echo Checking naabu  
+          naabu -h
+          
+          echo
+          echo Checking httprobe   
+          httprobe -h  
+          
+          echo
+          echo Checking amass 
+          amass
+          
+          echo
+          echo Checking Corsy 
+          python3 ~/tools/Corsy/corsy.py 
+          
+          echo
+          echo Checking altdns 
+          altdns 
+          
+         
+          echo ~~~~~~~~~~~~~~~~ DONE ~~~~~~~~~~~~~
