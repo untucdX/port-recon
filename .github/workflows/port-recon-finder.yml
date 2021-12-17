@@ -1,4 +1,4 @@
-name: Find subdomains
+name: port + recon for domain
 
 on:
   workflow_dispatch:
