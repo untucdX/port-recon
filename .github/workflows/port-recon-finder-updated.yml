@@ -33,24 +33,12 @@ jobs:
       - name: find ports for "${{ github.event.inputs.domain_name }}"
         run: |
           source ~/.bash_profile
-          RED=$(tput setaf 1)
-          GREEN=$(tput setaf 2)
-          BLUE=$(tput setaf 4)
-          RESET=$(tput sgr0)
-
-          echo "${RED} ######################################################### ${RESET}"
-          echo "${RED} #                         Let's Hunt                    # ${RESET}"
-          echo "${RED} ######################################################### ${RESET}"
 
           mkdir -p output/$domain
           cd output/$domain
 
           echo $domain > all.txt
-
-          echo "${BLUE} ######################################################### ${RESET}"
-          echo "${BLUE} #                      Running Naabu                    # ${RESET}"
-          echo "${BLUE} ######################################################### ${RESET}"
-
+          
           naabu -l all.txt -c 40 -p - -nmap-cli 'nmap -nv -sSV -A -oN --script nmap-vulners,vulscan nmap_scan.txt' -o naabu_portscan.txt
         
 
