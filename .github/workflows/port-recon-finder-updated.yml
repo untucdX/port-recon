@@ -32,6 +32,7 @@ jobs:
         
       - name: find ports for "${{ github.event.inputs.domain_name }}"
         run: |
+          sudo su
           source ~/.bash_profile
 
           mkdir -p output/$domain
@@ -44,10 +45,15 @@ jobs:
 
       - name: Checking for alive subdomains
         run: /
+          sudo su
+          source ~/.bash_profile
+          
           cat naabu_portscan.txt | httprobe -c 100 | tee -a alive2.txt
           cat alive2.txt | sort -u | tee -a alive.txt
           rm alive2.txt
 
+
+# what was the spark in your mind that got you into startup
 
 
 
