@@ -12,8 +12,16 @@ jobs:
   subdomain-wali:
     runs-on: ubuntu-18.04
     steps:
+      - name: Sudo
+        run: /
+          sudo su
+
       - name: Checkout this repo
         uses: actions/checkout@v2
+
+
+
+
         
       - name: Fetch bbht repo & Setup runner
         run: |
@@ -25,6 +33,9 @@ jobs:
         run: |
           ./scripts/port-recon-finder.sh -d "${{ github.event.inputs.domain_name }}"
         
+
+
+
       - name: Create local changes + Commit changes
         run: |
           git add .

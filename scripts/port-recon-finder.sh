@@ -21,8 +21,8 @@ if [ -z "$domain" ]; then
         exit 1
 fi
 
-mkdir $domain
-cd $domain
+mkdir -p output/$domain
+cd output/$domain
 
 echo $domain > all.txt
 
@@ -69,4 +69,4 @@ rm alive2.txt
 
 # cat alive.txt | smuggler | tee -a smuggler_op.txt
 
-cd ..
+cd ../..
