@@ -1,0 +1,81 @@
+name: port + recon for domain updated
+
+on:
+  workflow_dispatch:
+    inputs:
+      domain_name:
+        required: true
+        description: domain name
+
+        
+jobs:
+  subdomain-wali:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Sudo
+        run: sudo su
+
+      - name: Checkout this repo
+        uses: actions/checkout@v2
+
+
+
+
+
+
+        
+      - name: Fetch bbht repo & Setup runner
+        run: |
+          chmod +x scripts/*
+          ./scripts/install-bash.sh
+        
+      - name: find ports for "${{ github.event.inputs.domain_name }}"
+        run: |
+          source ~/.bash_profile
+          RED=$(tput setaf 1)
+          GREEN=$(tput setaf 2)
+          BLUE=$(tput setaf 4)
+          RESET=$(tput sgr0)
+
+          echo "${RED} ######################################################### ${RESET}"
+          echo "${RED} #                         Let's Hunt                    # ${RESET}"
+          echo "${RED} ######################################################### ${RESET}"
+
+          mkdir -p output/$domain
+          cd output/$domain
+
+          echo $domain > all.txt
+
+          echo "${BLUE} ######################################################### ${RESET}"
+          echo "${BLUE} #                      Running Naabu                    # ${RESET}"
+          echo "${BLUE} ######################################################### ${RESET}"
+
+          naabu -l all.txt -c 40 -p - -nmap-cli 'nmap -nv -sSV -A -oN --script nmap-vulners,vulscan nmap_scan.txt' -o naabu_portscan.txt
+        
+
+      - name: Checking for alive subdomains
+        run: /
+          cat naabu_portscan.txt | httprobe -c 100 | tee -a alive2.txt
+          cat alive2.txt | sort -u | tee -a alive.txt
+          rm alive2.txt
+
+
+
+
+
+
+
+      
+
+      - name: Create local changes + Commit changes
+        run: |
+          git add .
+          git config --local user.email "user@netanmangal.me"
+          git config --global user.name "untucdX"
+          git commit -m "report for ${{ github.event.inputs.domain_name }} added" -a --allow-empty
+          
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
