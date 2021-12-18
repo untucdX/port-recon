@@ -37,8 +37,8 @@ jobs:
           mkdir -p output/$domain
           cd output/$domain
 
-          echo $domain > all.txt
-          
+          echo "${{ github.event.inputs.domain_name }}" > all.txt
+
           naabu -l all.txt -c 40 -p - -nmap-cli 'nmap -nv -sSV -A -oN --script nmap-vulners,vulscan nmap_scan.txt' -o naabu_portscan.txt
         
 
