@@ -30,10 +30,10 @@ jobs:
         run: |
           source <(sudo cat /etc/bash.bashrc)
 
-          sudo mkdir -p output/$domain
-          sudo cd output/$domain
+          mkdir -p output/$domain
+          cd output/$domain
 
-          sudo echo "${{ github.event.inputs.domain_name }}" > all.txt
+          echo "${{ github.event.inputs.domain_name }}" > all.txt
 
           sudo naabu -scan-type SYN -l all.txt -c 40 -p 70-500 -nmap-cli 'nmap --privileged -nv -sSV -A -oN --script nmap-vulners,vulscan nmap_scan.txt' -o naabu_portscan.txt
         
