@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout this repo
-        run: sudo su
         uses: actions/checkout@v2
 
 
