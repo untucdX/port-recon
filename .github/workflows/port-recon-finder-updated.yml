@@ -12,10 +12,8 @@ jobs:
   subdomain-wali:
     runs-on: ubuntu-18.04
     steps:
-      - name: Sudo
-        run: sudo su
-
       - name: Checkout this repo
+        run: sudo su
         uses: actions/checkout@v2
 
 
@@ -40,23 +38,17 @@ jobs:
 
           echo "${{ github.event.inputs.domain_name }}" > all.txt
 
-          naabu -l all.txt -c 40 -p - -nmap-cli 'nmap -nv -sSV -A -oN --script nmap-vulners,vulscan nmap_scan.txt' -o naabu_portscan.txt
+          naabu -scan-type SYN -l all.txt -c 40 -p 70-500 -nmap-cli 'nmap --privileged -nv -sSV -A -oN --script nmap-vulners,vulscan nmap_scan.txt' -o naabu_portscan.txt
         
 
-      - name: Checking for alive subdomains
-        run: /
-          sudo su
-          source ~/.bash_profile
-          
+      - name: Checking for alive subdomains  
+        run: |
+          sudo su   
+          source ~/.bash_profile   
+
           cat naabu_portscan.txt | httprobe -c 100 | tee -a alive2.txt
           cat alive2.txt | sort -u | tee -a alive.txt
           rm alive2.txt
-
-
-# what was the spark in your mind that got you into startup
-
-
-
 
 
 
