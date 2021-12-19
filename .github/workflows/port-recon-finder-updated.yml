@@ -23,31 +23,29 @@ jobs:
         
       - name: Fetch bbht repo & Setup runner
         run: |
-          sudo su
-          chmod +x scripts/*
-          ./scripts/install-bash.sh
+          sudo chmod +x scripts/*
+          sudo ./scripts/install-bash.sh
         
       - name: find ports for "${{ github.event.inputs.domain_name }}"
         run: |
           sudo su
-          source ~/.bash_profile
+          sudo source ~/.bash_profile
 
-          mkdir -p output/$domain
-          cd output/$domain
+          sudo mkdir -p output/$domain
+          sudo cd output/$domain
 
-          echo "${{ github.event.inputs.domain_name }}" > all.txt
+          sudo echo "${{ github.event.inputs.domain_name }}" > all.txt
 
-          naabu -scan-type SYN -l all.txt -c 40 -p 70-500 -nmap-cli 'nmap --privileged -nv -sSV -A -oN --script nmap-vulners,vulscan nmap_scan.txt' -o naabu_portscan.txt
+          sudo naabu -scan-type SYN -l all.txt -c 40 -p 70-500 -nmap-cli 'nmap --privileged -nv -sSV -A -oN --script nmap-vulners,vulscan nmap_scan.txt' -o naabu_portscan.txt
         
 
       - name: Checking for alive subdomains  
         run: |
-          sudo su   
-          source ~/.bash_profile   
+          sudo source ~/.bash_profile   
 
-          cat naabu_portscan.txt | httprobe -c 100 | tee -a alive2.txt
-          cat alive2.txt | sort -u | tee -a alive.txt
-          rm alive2.txt
+          sudo cat naabu_portscan.txt | httprobe -c 100 | tee -a alive2.txt
+          sudo cat alive2.txt | sort -u | tee -a alive.txt
+          sudo rm alive2.txt
 
 
 
