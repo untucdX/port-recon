@@ -28,7 +28,6 @@ jobs:
         
       - name: find ports for "${{ github.event.inputs.domain_name }}"
         run: |
-          sudo su
           sudo source ~/.bash_profile
 
           sudo mkdir -p output/$domain
