@@ -28,7 +28,7 @@ jobs:
         
       - name: find ports for "${{ github.event.inputs.domain_name }}"
         run: |
-          sudo source ~/.bash_profile
+          source <(sudo cat /etc/bash.bashrc)
 
           sudo mkdir -p output/$domain
           sudo cd output/$domain
@@ -40,7 +40,7 @@ jobs:
 
       - name: Checking for alive subdomains  
         run: |
-          sudo source ~/.bash_profile   
+          source <(sudo cat /etc/bash.bashrc)
 
           sudo cat naabu_portscan.txt | httprobe -c 100 | tee -a alive2.txt
           sudo cat alive2.txt | sort -u | tee -a alive.txt
