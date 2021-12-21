@@ -12,9 +12,6 @@ jobs:
   subdomain-wali:
     runs-on: ubuntu-18.04
     steps:
-      - name: Sudo
-        run: sudo su
-
       - name: Checkout this repo
         uses: actions/checkout@v2
 
@@ -26,37 +23,28 @@ jobs:
         
       - name: Fetch bbht repo & Setup runner
         run: |
-          sudo su
-          chmod +x scripts/*
-          ./scripts/install-bash.sh
+          sudo chmod +x scripts/*
+          sudo ./scripts/install-bash.sh
         
       - name: find ports for "${{ github.event.inputs.domain_name }}"
         run: |
-          sudo su
-          source ~/.bash_profile
+          source <(sudo cat /etc/bash.bashrc)
 
           mkdir -p output/$domain
           cd output/$domain
 
           echo "${{ github.event.inputs.domain_name }}" > all.txt
 
-          naabu -l all.txt -c 40 -p - -nmap-cli 'nmap -nv -sSV -A -oN --script nmap-vulners,vulscan nmap_scan.txt' -o naabu_portscan.txt
+          sudo naabu -scan-type SYN -l all.txt -c 40 -p 70-500 -nmap-cli 'nmap --privileged -nv -sSV -A -oN --script nmap-vulners,vulscan nmap_scan.txt' -o naabu_portscan.txt
         
 
-      - name: Checking for alive subdomains
-        run: /
-          sudo su
-          source ~/.bash_profile
-          
-          cat naabu_portscan.txt | httprobe -c 100 | tee -a alive2.txt
-          cat alive2.txt | sort -u | tee -a alive.txt
-          rm alive2.txt
+      - name: Checking for alive subdomains  
+        run: |
+          source <(sudo cat /etc/bash.bashrc)
 
-
-# what was the spark in your mind that got you into startup
-
-
-
+          sudo cat naabu_portscan.txt | httprobe -c 100 | tee -a alive2.txt
+          sudo cat alive2.txt | sort -u | tee -a alive.txt
+          sudo rm alive2.txt
 
 
 

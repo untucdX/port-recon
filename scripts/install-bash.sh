@@ -5,6 +5,7 @@ sudo apt-get -y upgrade
 sudo apt-get install -y libcurl4-openssl-dev
 sudo apt-get install -y libssl-dev
 sudo apt-get install -y libpcap-dev
+sudo apt-get install libcap2-bin
 sudo apt-get install -y jq
 sudo apt-get install -y ruby-full
 sudo apt-get install -y libcurl4-openssl-dev libxml2 libxml2-dev libxslt1-dev ruby-dev build-essential libgmp-dev zlib1g-dev
@@ -68,6 +69,7 @@ cd ~/tools/
 #install nmap
 echo -e "\e[1;31m installing nmap \e[0m"
 sudo apt-get install -y nmap
+sudo setcap cap_net_raw,cap_net_admin,cap_net_bind_service+eip $(which nmap)
 echo -e "\e[1;31m done \e[0m"
 
 #nmap scripts
