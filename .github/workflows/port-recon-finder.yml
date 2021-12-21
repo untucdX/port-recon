@@ -12,8 +12,6 @@ jobs:
   subdomain-wali:
     runs-on: ubuntu-18.04
     steps:
-      - name: Sudo
-        run: sudo su
 
       - name: Checkout this repo
         uses: actions/checkout@v2
@@ -24,13 +22,13 @@ jobs:
         
       - name: Fetch bbht repo & Setup runner
         run: |
-          chmod +x scripts/*
-          ./scripts/install-bash.sh
+          sudo chmod +x scripts/*
+          sudo ./scripts/install-bash.sh
         
       - name: find ports + recon for "${{ github.event.inputs.domain_name }}"
         continue-on-error: true
         run: |
-          ./scripts/port-recon-finder.sh -d "${{ github.event.inputs.domain_name }}"
+          sudo ./scripts/port-recon-finder.sh -d "${{ github.event.inputs.domain_name }}"
         
 
 
