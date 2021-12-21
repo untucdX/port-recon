@@ -22,13 +22,13 @@ jobs:
         
       - name: Fetch bbht repo & Setup runner
         run: |
-          sudo chmod +x scripts/*
-          sudo ./scripts/install-bash.sh
+          chmod +x scripts/*
+          ./scripts/install-bash.sh
         
       - name: find ports + recon for "${{ github.event.inputs.domain_name }}"
         continue-on-error: true
         run: |
-          sudo ./scripts/port-recon-finder.sh -d "${{ github.event.inputs.domain_name }}"
+          ./scripts/port-recon-finder.sh -d "${{ github.event.inputs.domain_name }}"
         
 
 
